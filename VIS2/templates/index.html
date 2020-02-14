@@ -12,6 +12,7 @@
 
 {% block contents %}
 <div class="container">
+    
 
     <!-- page content -->
       <div class="row">
@@ -20,43 +21,79 @@
           </div>
       </div>
 
-      <div class="row">
-        <div class="col-sm-6" >
-          <div class="x_panel tile fixed_height_320 overflow_hidden">
-            {{ embed(roots.fig_n) }}
+       <div class="row equal">
+        <div class="col-sm-2">
+         </div>
+
+        <div class="col-sm-4">
+         </div>
+
+        <div class="col-sm-4 text-center center-block">
+            {{ embed(roots.word_length_2) }}
         </div>
+        <div class="col-sm-2">
+         </div>
         </div>
 
-        <div class="col-sm-6">
-            <div class = "row no-margin">
-                <div class="col no-margin">
-            {{ embed(roots.fig_n_2) }}
-                </div>
+
+      <div class="row align-items-center">
+        <div class="col-sm-3" >
+            {{ embed(roots.all_combinations) }}
+        </div>
+
+        <div class="col-sm-4" >
+            <div class = "row ">
+            
+            {{ embed(roots.fig_n) }}
+
             </div>
-             <div class = "row no-margin">
-            <div class="col no-margin">
+
+            <div class = "row text-center">
+            {{ embed(roots.word_length) }}
+            </div>
+
+        </div>
+
+        <div class="col-sm-4">
+            <div class = "row ">
+            {{ embed(roots.fig_n_2) }}
+            </div>
+             <div class = "row">
             {{ embed(roots.fig_n_1) }}
             </div> 
+            <div class = "row  text-center">
+                {{ embed(roots.word_length_1) }}
             </div> 
         </div>
+
+        <div class="col-sm-1">
+            <div class = "row">
+                {{ embed(roots.all_combinations_2) }}
+            </div>
+
+            <div class = "row">
+                {{ embed(roots.all_combinations_1) }}
+            </div> 
+
+        </div>
+
     </div>
-
-       <div class="row equal">
-        <div class="col-sm-8 align-self-md-center">
-          <div class="x_panel tile fixed_height_320 overflow_hidden">
-            {{ embed(roots.word_length) }}
-        </div>
-        </div>
-
-        </div>
 
       <div class="row equal">
-        <div class="col-sm-8 ">
+        <div class="col-sm-4 ">
           <div class="x_panel tile fixed_height_320 overflow_hidden">
-            {{ embed(roots.all_combinations) }}
+          </div>
+    </div>
+
+        <div class="col-sm-4 ">
+          <div class="x_panel tile fixed_height_320 overflow_hidden">
           </div>
         </div>
-    </div>
+        <div class="col-sm-4 ">
+          <div class="x_panel tile fixed_height_320 overflow_hidden">
+          </div>
+        </div>
+     </div>
 
 </div>
 <!--y /page content -->
