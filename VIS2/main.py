@@ -160,7 +160,7 @@ callback = CustomJS(args=dict(source=source,
 slider.js_on_change('value', callback)
 
 
-def js_filter(modifier, slider, source):
+def js_filter(modifier, slider):
     code = '''
                 var indices = [];
                 for (var i = 0; i <= source.data['word_length'].length; i++){{
@@ -171,7 +171,7 @@ def js_filter(modifier, slider, source):
                 return indices
         '''.format(modifier)
 
-    return CustomJSFilter(args=dict(slider=slider, source=source), code=code)
+    return CustomJSFilter(args=dict(slider=slider), code=code)
 
 
 def main_fig(name, view, height, width=400):
@@ -224,9 +224,9 @@ HEIGHT = 500
 # fig_n_long_ending.x_range = fig_n_not_long_ending.x_range
 #
 # fig_n = column([fig_n_long_ending, fig_n_not_long_ending], name='fig_n')
-filter = js_filter(modifier=0, slider=slider, source=source)
-filter_1 = js_filter(modifier=1, slider=slider, source=source)
-filter_2 = js_filter(modifier=2, slider=slider, source=source)
+filter = js_filter(modifier=0, slider=slider)
+filter_1 = js_filter(modifier=1, slider=slider)
+filter_2 = js_filter(modifier=2, slider=slider)
 
 fig_n = main_fig(name="fig_n",
                  view=CDSView(source=source, filters=[filter]),
@@ -247,8 +247,6 @@ print(fig_n_2.plot_height)
 for item in [
         fig_n, fig_n_1, fig_n_2, slider, word_length_div, all_combinations,
         word_length_div_1, all_combinations_1,
-        word_length_div_2, all_combinations_2
-
-]:
+        word_length_div_2, all_combinations_2]:
     curdoc().add_root(item)
 curdoc().title = "Pingala"

@@ -85,7 +85,7 @@ callback = CustomJS(args=dict(source=source,text = text,slider = slider),
 slider.js_on_change('value', callback)
 
 # Define the custom filter to return the indices from 0 to the desired percentage of total data rows. You could also compare against values in source.data
-js_filter = CustomJSFilter(args=dict(slider=slider, source=source, text = text),
+js_filter = CustomJSFilter(args=dict(slider=slider, text = text),
                            code='''
             var indices = [];
             for (var i = 0; i <= source.data['word_length'].length; i++){
