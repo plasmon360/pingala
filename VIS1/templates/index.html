@@ -1,0 +1,56 @@
+{% extends base %}
+{% block preamble %}
+
+  <!-- Bootstrap -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Custom Style -->
+   <link href="VIS3/static/css/custom.min.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    
+    <div>
+        <h1>Visualization of Pingala series as sum</h1>
+        <div>
+    <!-- page content -->
+
+
+
+      <div class="row align-items-center">
+
+        <div class="col-sm-8" >
+            <div class = "row ">
+            
+            {{ embed(roots.fig_n) }}
+
+            </div>
+
+            <div class = "row text-center">
+            <div class = "inner_div">
+                {{ embed(roots.word_length_0) }}
+            </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-4" >
+            {{ embed(roots.all_combinations_0) }}
+        </div>
+
+    </div>
+
+
+      <div class="row">
+          <div class="col-md-12">
+              {{ embed(roots.word_length_slider) }}
+          </div>
+      </div>
+
+</div>
+<!--y /page content -->
+
+{% endblock %}

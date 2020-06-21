@@ -40,7 +40,7 @@ def find_first_non_zero(mylist):
 
 
 size = 2
-slider_initial_val = 5
+slider_initial_val = 3
 slider_final_val = 10
 data = defaultdict(list)
 
@@ -198,7 +198,7 @@ def main_fig(name, view, height, width=400):
     return fig
 
 
-HEIGHT = 500
+HEIGHT = 600
 # fig_n_not_long_ending = myfig(
 #    name="fig_n",
 #    view=CDSView(source=source,
@@ -243,7 +243,8 @@ for n in range(3):
 for i in range(1, 3):
     figures[n].x_range = figures[0].x_range
 
-items = [slider]+combinations+word_length_divs+figures
+#items = [slider]+combinations+word_length_divs+figures
+items = [slider]+[combinations[0], word_length_divs[0], figures[0]]
 for item in items:
     curdoc().add_root(item)
 
