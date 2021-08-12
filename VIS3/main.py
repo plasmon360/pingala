@@ -41,7 +41,7 @@ def find_first_non_zero(mylist):
 
 size = 2
 slider_initial_val = 3
-slider_final_val = 10
+slider_final_val = 11
 data = defaultdict(list)
 
 for word_length in range(slider_initial_val - 2, slider_final_val + 1):
@@ -84,7 +84,7 @@ for i in range(3):
                 name=f'all_combinations_{i}')
     temp1.css_classes = [f'combinations']
 
-    temp2 = Div(text=f"""<span class="wordlength">""" + 'Length = '+str(slider_initial_val-i) +
+    temp2 = Div(text=f"""<span class="wordlength">""" + 'P'+str(slider_initial_val-i) +
                 """</span>""",
                 name=f'word_length_{i}')
 
@@ -92,6 +92,10 @@ for i in range(3):
 
     combinations.append(temp1)
     word_length_divs.append(temp2)
+
+ratio_div = Div(text=f"""<span class="ratio_div">""" +
+            str(len(pingala(slider_initial_val-1)) / len(pingala(slider_initial_val-2))  ) + """</span>""",
+            name=f'ratio_div')
 
 #
 # Create the slider that modifies the filtered indices
@@ -113,6 +117,7 @@ callback = CustomJS(args=dict(source=source,
                               word_length_div_1=word_length_divs[1],
                               combinations_2=combinations[2],
                               word_length_div_2=word_length_divs[2],
+                              ratio_div = ratio_div,
                               slider=slider),
                     code="""
             var columns= [];
@@ -141,10 +146,11 @@ callback = CustomJS(args=dict(source=source,
      combinations_2.text = "<span class=combinations_2> " + \
          uniqueItems_2.length+ "</span>";
 
+     ratio_div.text = "<span class= ratio_div>" + (uniqueItems_1.length/uniqueItems_2.length).toFixed(4) + "</span>";
 
-     word_length_div_0.text = "<span class= wordlength> " + 'Length = ' + slider.value+ "</span>";
-     word_length_div_1.text = "<span class= wordlength> " + 'Length = '+(slider.value-1)+ "</span>";
-     word_length_div_2.text = "<span class= wordlength> " + 'Length = '+(slider.value-2)+ "</span>";
+     word_length_div_0.text = "<span class= wordlength> " + 'P' + slider.value+ "</span>";
+     word_length_div_1.text = "<span class= wordlength> " + 'P'+(slider.value-1)+ "</span>";
+     word_length_div_2.text = "<span class= wordlength> " + 'P'+(slider.value-2)+ "</span>";
 
 
     source.change.emit();
@@ -194,61 +200,38 @@ def main_fig(name, view, height, width=400):
              alpha=0.8,
              color=factor_cmap(field_name='type',
                                palette=['red', 'grey'],
-                               factors=groups),
-legend_group = 'type',
-             )
-    fig.legend.location = 'top_left'
-    fig.legend.glyph_height=50
+                               factors=groups))
     return fig
 
 
-HEIGHT = 600
-# fig_n_not_long_ending = myfig(
-#    name="fig_n",
-#    view=CDSView(source=source,
-#                 filters=[
-#                     BooleanFilter(
-#                         [not item for item in source.data['ends_with_long']]),
-#                     js_filter_n
-#                 ]),
-#    height=HEIGHT,
-# )
-# fig_n_long_ending = myfig(
-#    name="fig_n",
-#    view=CDSView(
-#        source=source,
-#        filters=[BooleanFilter(source.data['ends_with_long']), js_filter_n]),
-#    height=int(HEIGHT / 1.618),
-# )
-# fig_n_long_ending.x_range = fig_n_not_long_ending.x_range
-#
-# fig_n = column([fig_n_long_ending, fig_n_not_long_ending], name='fig_n')
-
+HEIGHT = 400
 # Create a list of filters for each figure
 filters = [js_filter(modifier=x, slider=slider) for x in range(3)]
 
+fig_n_not_long_ending = main_fig(
+   name="fig_n_not_long_ending",
+   view=CDSView(source=source,
+                filters=[
+                    BooleanFilter(
+                        [not item for item in source.data['ends_with_long']]),
+                    filters[0]
+                ]),
+   height=HEIGHT,
+)
+fig_n_long_ending = main_fig(
+   name="fig_n_long_ending",
+   view=CDSView(
+       source=source,
+       filters=[BooleanFilter(source.data['ends_with_long']), filters[0]]),
+   height=int(HEIGHT / 1.618),
+)
+fig_n_long_ending.x_range = fig_n_not_long_ending.x_range
+
+
 # Make Figures
-figures = []
-for n in range(3):
-    if n == 0:
-        fig = main_fig(name="fig_n",
-                       view=CDSView(source=source, filters=[filters[n]]),
-                       height=HEIGHT)
-    elif n == 1:
-        fig = main_fig(name=f"fig_n_{n}",
-                       view=CDSView(source=source, filters=[filters[n]]),
-                       height=int(HEIGHT / 1.618))
-    elif n == 2:
-        fig = main_fig(name=f"fig_n_{n}",
-                       view=CDSView(source=source, filters=[filters[n]]),
-                       height=HEIGHT - int(HEIGHT / 1.618))
-    figures.append(fig)
 
-for i in range(1, 3):
-    figures[n].x_range = figures[0].x_range
-
-#items = [slider]+combinations+word_length_divs+figures
-items = [slider]+[combinations[0], word_length_divs[0], figures[0]]
+items = [slider, combinations[0], combinations[1], combinations[2],
+         word_length_divs[0], fig_n_long_ending, fig_n_not_long_ending, ratio_div]
 for item in items:
     curdoc().add_root(item)
 

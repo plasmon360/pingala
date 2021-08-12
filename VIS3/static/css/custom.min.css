@@ -1,0 +1,36 @@
+.wordlength_style
+.combinations_style{
+margin:auto !important;
+}
+
+.inner_div {
+        display: inline-block;
+        margin: 0 auto;
+      }
+
+.no-margin
+{
+  margin: 0px !important;
+}
+
+.combinations_0 {
+    font-size: 12rem;
+    font-weight: 200;
+    line-height: 1.2;
+}
+
+.ratio_div, .combinations_1, .combinations_2 {
+    font-size: 5rem;
+    font-weight: 200;
+    line-height: 1.2;
+}
+
+.wordlength {
+    font-size: 3rem;
+    font-weight: 200;
+    line-height: 1.2;
+}
+
+.math_formula {
+font-size: 2.45rem;
+}
